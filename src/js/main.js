@@ -130,7 +130,7 @@ const AppContainer = (() => {
         }, false);
         sworker.port.addEventListener("message", (event) => {
           console.log('Recieved a message from SharedWorker: evnet.data = ', event.data);
-          document.getElementById('result').textContent += ` | ${event.data}`;
+          document.getElementById('result').textContent += `${event.data}, `;
         }, false);
         sworker.port.start()
         sworker.port.postMessage('Hello')
