@@ -55,11 +55,11 @@ if (window.Worker) {
       <div className="panel panel-success">
         <div className="panel-heading">(1) Worker (Dedicated Worker)</div>
         <div className="panel-body">
-          <h4>(1) Workerが使えるかどうかの判定</h4>
+          <h4>(1-1) Workerが使えるかどうかの判定</h4>
           <pre><code>{check_code}</code></pre>
           <p>現在使用しているブラウザの判定結果</p>
           <div className="alert alert-warning" role="alert">結果： {window.Worker ? 'Worker を使うことができます。' : 'Worker が使えません。'}</div>
-          <h4>(2) Workerにメッセージを送る</h4>
+          <h4>(1-2) Workerにメッセージを送る</h4>
           <ol>
             <li>main側から worker側にスタートのメッセージを送ります。</li>
             <li>worker側では1秒おきに、main側にメッセージを送り始めます。</li>
