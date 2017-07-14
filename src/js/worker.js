@@ -1,7 +1,6 @@
-
 let si;
 
-self.addEventListener('message', (event) => {
+self.onmessage = (event) => {
   console.log('Recieved a message on the Worker side: event.data = ', event.data);
 
   let t = 0;
@@ -19,4 +18,4 @@ self.addEventListener('message', (event) => {
       t = 0
       break;
   }
-});
+};
