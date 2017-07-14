@@ -102,7 +102,7 @@ if (window.Worker) {
         <div className="panel panel-success">
           <div className="panel-heading">(4) Shared Worker</div>
           <div className="panel-body">
-            <p>以下のボタンを押す度に、<code>new SharedWorker()</code> を実行していますが、すべて同じ1つのオブジェクトへのアクセスを共通できるので、「接続数」の値が増えていきます。</p>
+            <p>以下のボタンを押す度に、<code>new SharedWorker()</code> を実行していますが、生成されるのはすべて同じ1つのオブジェクトと考えてよさそうです。「接続数」を保持する変数は1つのShared Workerオブジェクトで管理しているため、このオブジェクトにアクセスする度に値が増えていきます。</p>
             <button type="button" onClick={this.props.onClickToSendMessageShared}>Shared Workerにメッセージを送る</button>
             <output id="result4"></output>
           </div>
