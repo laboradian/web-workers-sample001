@@ -12,6 +12,9 @@ import PropTypes from 'prop-types'
 // index.html ファイルをコピーする
 require('file-loader?name=../../dist/[name].[ext]!../index.html');
 
+// 画像ファイルをコピーする
+require("file-loader?name=../../dist/img/[name].[ext]!../img/pc.png");
+
 //-----------------------------------
 // Action creators (Actionを返す)
 //-----------------------------------
@@ -88,11 +91,20 @@ if (window.Worker) {
         </div>
 
         <div className="panel panel-success">
-          <div className="panel-heading">(3) Shared Worker</div>
+          <div className="panel-heading">(3) Worker 内で XMLHttpRequest Level2 を利用する</div>
+          <div className="panel-body">
+            <p></p>
+            <button type="button" onClick={this.props.onClickToReadImageXHR}>画像ファイルを読み込む</button>
+            <output id="output3"></output>
+          </div>
+        </div>
+
+        <div className="panel panel-success">
+          <div className="panel-heading">(4) Shared Worker</div>
           <div className="panel-body">
             <p>以下のボタンを押す度に、<code>new SharedWorker()</code> を実行していますが、すべて同じ1つのオブジェクトへのアクセスを共通できるので、「接続数」の値が増えていきます。</p>
             <button type="button" onClick={this.props.onClickToSendMessageShared}>Shared Workerにメッセージを送る</button>
-            <output id="result3"></output>
+            <output id="result4"></output>
           </div>
         </div>
       </div>
@@ -105,7 +117,8 @@ AppComponent.propTypes = {
   onClickToSendMessage: PropTypes.func.isRequired,
   onClickToStop: PropTypes.func.isRequired,
   onClickToSendMessageShared: PropTypes.func.isRequired,
-  onClickToReadImage: PropTypes.func.isRequired
+  onClickToReadImage: PropTypes.func.isRequired,
+  onClickToReadImageXHR: PropTypes.func.isRequired
 };
 
 //-----------------------------------
@@ -138,6 +151,15 @@ const AppContainer = (() => {
       document.getElementById('output2').appendChild(img);
     });
 
+    const MyXhrWorker = require("worker-loader!./worker_xhr.js");
+    const workerXhr = new MyXhrWorker();
+    workerXhr.addEventListener("message", (event) => {
+      const img = document.createElement('img');
+      img.src = event.data;
+      document.getElementById('output3').innerHTML = '';
+      document.getElementById('output3').appendChild(img);
+    });
+
     return {
       /**
        */
@@ -162,7 +184,7 @@ const AppContainer = (() => {
         }, false);
         sworker.port.addEventListener("message", (event) => {
           console.log('Recieved a message from SharedWorker: evnet.data = ', event.data);
-          document.getElementById('result3').textContent += `${event.data}, `;
+          document.getElementById('result4').textContent += `${event.data}, `;
         }, false);
         sworker.port.start()
         sworker.port.postMessage('Hello')
@@ -174,7 +196,14 @@ const AppContainer = (() => {
         document.getElementById('output2').innerHTML = '処理中です';
         const file = document.getElementById('file').files[0];
         fileWorker.postMessage(file);
-      }
+      },
+      /**
+       * 画像を読み込むボタン(using XHR)
+       */
+      onClickToReadImageXHR() {
+        document.getElementById('output3').innerHTML = '処理中です';
+        workerXhr.postMessage('');
+      },
     }
   }
 
