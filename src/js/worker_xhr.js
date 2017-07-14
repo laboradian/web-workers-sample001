@@ -13,8 +13,7 @@ self.onmessage = (/*event*/) => {
 
   }, true);
 
-  //xhr.overrideMimeType("text/plain; charset=x-user-defined");
-  xhr.open("GET", "http://localhost:3000/img/pc.png", true);
+  xhr.open("GET", "../img/pc.png", true);
   xhr.responseType = "blob";
   xhr.send(null);
 
