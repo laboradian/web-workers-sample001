@@ -55,7 +55,7 @@ module.exports = [
   },
   output: {
     path: path.resolve(__dirname, "dist/css"),
-    publicPath: '/css/',
+    publicPath: './css/',
     filename: "[name].css"
   },
   module: {
