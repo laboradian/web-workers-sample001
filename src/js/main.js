@@ -98,7 +98,6 @@ AppComponent.propTypes = {
 const AppContainer = (() => {
 
   const mapStateToProps = (state/*, ownProps*/) => {
-    console.log('state on mapStateToProps = ', state);
     return {
       msg: state
     };
@@ -121,7 +120,6 @@ const AppContainer = (() => {
         worker.postMessage({action: 'stop'});
       },
       onClickToSendMessageShared() {
-        console.log('exec onClickToSendMessageShared()');
 
         const SharedWorker = require('shared-worker-loader!./sharedWorker.js')
         const sworker = new SharedWorker(/*name*/) // name is optional
